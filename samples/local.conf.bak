@@ -1,9 +1,8 @@
 # Sample ``local.conf`` for user-configurable variables in ``stack.sh``
 
-# NOTE: Copy this file to the root ``devstack`` directory for it to
-# work properly.
+# NOTE: Copy this file to the root DevStack directory for it to work properly.
 
-# ``local.conf`` is a user-maintained setings file that is sourced from ``stackrc``.
+# ``local.conf`` is a user-maintained settings file that is sourced from ``stackrc``.
 # This gives it the ability to override any variables set in ``stackrc``.
 # Also, most of the settings in ``stack.sh`` are written to only be set if no
 # value has already been set; this lets ``local.conf`` effectively override the
@@ -27,27 +26,21 @@
 # If the ``SERVICE_TOKEN`` and ``*_PASSWORD`` variables are not set
 # here you will be prompted to enter values for them by ``stack.sh``
 # and they will be added to ``local.conf``.
-SERVICE_TOKEN=c3862944-014b-4915-9303-23a10d45d612
-ADMIN_PASSWORD=skyinno609
-MYSQL_PASSWORD=skyinno609db
-RABBIT_PASSWORD=skyinno609mq
+SERVICE_TOKEN=azertytoken
+ADMIN_PASSWORD=nomoresecrete
+MYSQL_PASSWORD=stackdb
+RABBIT_PASSWORD=stackqueue
 SERVICE_PASSWORD=$ADMIN_PASSWORD
 
-# ``HOST_IP`` should be set manually for best results if the NIC configuration
-# of the host is unusual, i.e. ``eth1`` has the default route but ``eth0`` is the
-# public interface.  It is auto-detected in ``stack.sh`` but often is indeterminate
-# on later runs due to the IP moving from an Ethernet interface to a bridge on
-# the host. Setting it here also makes it available for ``openrc`` to include
-# when setting ``OS_AUTH_URL``.
-# ``HOST_IP`` is not set by default.
+# ``HOST_IP`` and ``HOST_IPV6`` should be set manually for best results if
+# the NIC configuration of the host is unusual, i.e. ``eth1`` has the default
+# route but ``eth0`` is the public interface.  They are auto-detected in
+# ``stack.sh`` but often is indeterminate on later runs due to the IP moving
+# from an Ethernet interface to a bridge on the host. Setting it here also
+# makes it available for ``openrc`` to include when setting ``OS_AUTH_URL``.
+# Neither is set by default.
 #HOST_IP=w.x.y.z
-
-
-# Base Dir
-# --------
-
-# OpenStack output dir
-DEST=/opt/openstack/
+#HOST_IPV6=2001:db8::7
 
 
 # Logging
@@ -100,3 +93,9 @@ SWIFT_REPLICAS=1
 # moved by setting ``SWIFT_DATA_DIR``. The directory will be created
 # if it does not exist.
 SWIFT_DATA_DIR=$DEST/data
+
+# Tempest
+# -------
+
+# Install the tempest test suite
+enable_service tempest
